@@ -4,6 +4,6 @@
 </script>
 
 <main>
-  <AuthHeader />
+  <AuthHeader isSignup={true} />
   <RegisterForm />
 </main>

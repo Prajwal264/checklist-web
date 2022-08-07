@@ -1,7 +1,22 @@
+<script>
+  export let isSignup;
+  console.log(isSignup);
+</script>
+
 <header>
-  <img src="./assets/images/logo-full.svg" alt="logo-full" />
+  <a href=".">
+    <img src="./assets/images/logo-full.svg" alt="logo-full" />
+  </a>
   <div>
-    <button class="signin-btn">Sign In</button>
+    {#if isSignup}
+      <a href="signin">
+        <button class="signin-btn">Sign In</button>
+      </a>
+    {:else}
+      <a href="signup">
+        <button class="signin-btn">Sign Up</button>
+      </a>
+    {/if}
   </div>
 </header>
 

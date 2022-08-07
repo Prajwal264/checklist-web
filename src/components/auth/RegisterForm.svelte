@@ -72,10 +72,12 @@
               Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
             font-weight: 700;
             color: rgb(0, 0, 0);
-            font-size: 3.8rem;
-            line-height: 4.6rem;
             margin: 0px;
             word-break: break-word;
+            letter-spacing: -0.04em;
+            font-size: 6.2rem;
+            line-height: 5.6rem;
+            margin: 0px -20px 10px;
           }
           .registration-form-label {
             font-size: 1.6rem;

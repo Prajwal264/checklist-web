@@ -1,8 +1,10 @@
 <script lang="ts">
 	import router from "page";
 	import Home from "./pages/Home.svelte";
+	import Signup from "./pages/Signup.svelte";
 	let page;
 	router("/", () => (page = Home));
+	router("/signup", () => (page = Signup));
 	router.start();
 </script>
 

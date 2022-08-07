@@ -64,6 +64,10 @@
           border-radius: 6px;
           box-shadow: rgb(0 0 0 / 25%) 0px 2px 6px, rgb(0 0 0 / 25%) 0px 1px 2px;
           transition: box-shadow 0.1s ease 0s;
+          &:hover {
+            box-shadow: rgb(0 0 0 / 25%) 0px 2px 6px,
+              rgb(0 0 0 / 25%) 0px 1px 2px, rgb(35 135 251) 0px 0px 0px 2px;
+          }
         }
       }
     }

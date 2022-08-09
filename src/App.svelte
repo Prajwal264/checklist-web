@@ -1,5 +1,6 @@
 <script lang="ts">
 	import router from "page";
+import Dashboard from './pages/Dashboard.svelte';
 	import Home from "./pages/Home.svelte";
 	import Signin from "./pages/Signin.svelte";
 	import Signup from "./pages/Signup.svelte";
@@ -7,6 +8,7 @@
 	router("/", () => (page = Home));
 	router("/signup", () => (page = Signup));
 	router("/signin", () => (page = Signin));
+	router("/app", () => (page = Dashboard));
 	router.start();
 </script>
 

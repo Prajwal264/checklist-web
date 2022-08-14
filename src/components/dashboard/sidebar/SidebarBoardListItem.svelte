@@ -1,8 +1,15 @@
+<script>
+  export let item;
+</script>
+
 <a href="today" class="sidebar-board-list-item">
   <div class="icon-container">
-    <img src="assets/images/star.svg" alt="star" />
+    <img
+      src="assets/images/{item.icon || 'default-sidebar-icon'}.svg"
+      alt={item.icon || "default"}
+    />
   </div>
-  <p class="title">Today</p>
+  <p class="title">{item.name}</p>
 </a>
 
 <style lang="scss">
@@ -13,8 +20,8 @@
     border-radius: 6px;
     transition: box-shadow 0.1s ease 0s;
     margin-bottom: 0px;
-    transition: opacity 0s ease 0s, background-color 0s ease 0s;
-    background-color: rgb(210, 227, 253);
+    // transition: opacity 0s ease 0s, background-color 0s ease 0s;
+    // background-color: rgb(210, 227, 253);
     cursor: pointer;
     min-height: 36px;
     width: 100%;

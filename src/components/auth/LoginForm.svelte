@@ -2,7 +2,7 @@
   import router from "page";
   import toast from "svelte-french-toast";
   import { executePromise } from "../../helpers/toast.helpers";
-  import authService from "../../services/api/auth.service";
+  import authAPIService from "../../services/api/auth.api.service";
   interface FormData {
     email: string;
     password: string;
@@ -13,7 +13,7 @@
   };
 
   async function login() {
-    const loginPromise = authService.login(formData);
+    const loginPromise = authAPIService.login(formData);
     executePromise(loginPromise, {
       loading: "Loggin In",
       success: "Login successful",

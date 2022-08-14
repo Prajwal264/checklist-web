@@ -1,4 +1,10 @@
 <script lang="ts">
+  interface FormData {
+    name: string;
+  }
+  let formData: FormData = {
+    name: "",
+  };
 </script>
 
 <form class="sidebar-add-board-form">
@@ -18,16 +24,7 @@
           placeholder="New Board"
           autocomplete="off"
           rows="1"
-        />
-      </div>
-      <div>
-        <textarea
-          class="description"
-          name="description"
-          placeholder="Notes"
-          id=""
-          cols="30"
-          rows="10"
+          bind:value={formData.name}
         />
       </div>
     </div>
@@ -43,7 +40,7 @@
     position: relative;
     z-index: 2;
     padding: 8px 10px 10px;
-    min-height: 90px;
+    min-height: 30px;
     .form-container {
       display: flex;
       flex-direction: row;
@@ -70,25 +67,8 @@
         height: 20px;
         font-size: 1.6rem;
         line-height: 1.9rem;
-        margin-bottom: 4px;
+        margin-bottom: 0px;
         padding-top: 1px;
-      }
-      .description {
-        overflow: hidden;
-        overflow-wrap: break-word;
-        height: 17px;
-        font-size: 1.4rem;
-        line-height: 1.7rem;
-        margin-bottom: 7px;
-        width: 100%;
-        resize: none;
-        border: none;
-        padding: 0px;
-        outline: none;
-        color: rgb(0, 0, 0);
-        caret-color: rgb(35, 135, 251);
-        background-color: transparent;
-        min-height: 100%;
       }
     }
   }

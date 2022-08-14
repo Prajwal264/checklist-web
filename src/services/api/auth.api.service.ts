@@ -1,4 +1,4 @@
-import RestApiService, { ApiResponse, ErrorResponse } from './rest.service';
+import RestApiService, { ApiResponse } from './rest.api.service';
 
 interface RegisterPayload {
   username: string;
@@ -6,7 +6,10 @@ interface RegisterPayload {
   password: string;
 }
 
-interface LoginPayload extends RegisterPayload {};
+interface LoginPayload  {
+  email: string;
+  password: string;
+};
 
 interface RegisterResponse {
   success: string;
@@ -16,7 +19,7 @@ type LoginResponse = {
   success: string;
 }
 
-class AuthService extends RestApiService {
+class AuthAPIService extends RestApiService {
 
   constructor() {
     super();
@@ -32,5 +35,5 @@ class AuthService extends RestApiService {
   }
 };
 
-const authService = new AuthService();
-export default authService;
+const authApiService = new AuthAPIService();
+export default authApiService;

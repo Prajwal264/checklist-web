@@ -2,7 +2,7 @@
   import router from "page";
   import toast from "svelte-french-toast";
   import { executePromise } from "../../helpers/toast.helpers";
-  import authService from "../../services/api/auth.service";
+  import authService from "../../services/api/auth.api.service";
   interface FormData {
     username: string;
     email: string;

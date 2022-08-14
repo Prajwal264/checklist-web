@@ -15,7 +15,7 @@
 
 <main>
 	<svelte:component this={page} />
-	<Toaster />
+	<Toaster position="bottom-right" />
 </main>
 
 <style lang="scss">

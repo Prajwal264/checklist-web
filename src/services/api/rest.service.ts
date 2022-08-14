@@ -2,6 +2,12 @@ export type ErrorResponse = {
   error: string;
 } 
 export type ApiResponse<T> = T | ErrorResponse;
+
+const defaultRequestOptions: RequestInit = {
+  headers: {'Content-Type': 'application/json'},
+  mode: 'cors',
+  credentials: 'include',
+}
 export default class RestApiService {
 
   protected suffix: string;
@@ -14,8 +20,7 @@ export default class RestApiService {
     url = this.suffix + url;
     return fetch(url, {
       method: 'GET',
-      headers: {'Content-Type': 'application/json'},
-      mode: 'cors',
+      ...defaultRequestOptions
     });
   }
 
@@ -24,9 +29,8 @@ export default class RestApiService {
     console.log(body);
     const res = await fetch(url, {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      mode: 'cors',
       body: JSON.stringify(body),
+      ...defaultRequestOptions,
     });
     return res.json();
   }
@@ -35,9 +39,8 @@ export default class RestApiService {
     url = this.suffix + url;
     const res = await fetch(url, {
       method: 'PATCH',
-      headers: {'Content-Type': 'application/json'},
-      mode: 'cors',
       body: JSON.stringify(body),
+      ...defaultRequestOptions
     });
     return res.json();
   }
@@ -46,9 +49,8 @@ export default class RestApiService {
     url = this.suffix + url;
     const res = await fetch(url, {
       method: 'PUT',
-      headers: {'Content-Type': 'application/json'},
-      mode: 'cors',
       body: JSON.stringify(body),
+      ...defaultRequestOptions
     });
     return res.json();
   }
@@ -57,8 +59,7 @@ export default class RestApiService {
     url = this.suffix + url;
     const res = await fetch(url, {
       method: 'DELETE',
-      headers: {'Content-Type': 'application/json'},
-      mode: 'cors',
+      ...defaultRequestOptions
     });
     return res.json();
   }

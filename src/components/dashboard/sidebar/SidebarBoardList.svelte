@@ -1,5 +1,6 @@
 <script lang="ts">
   import SidebarAddBoardButton from "./SidebarAddBoardButton.svelte";
+  import SidebarAddBoardForm from "./SidebarAddBoardForm.svelte";
 
   import SidebarBoardListItem from "./SidebarBoardListItem.svelte";
 
@@ -17,10 +18,6 @@
     {
       name: "Watch list",
     },
-    {
-      name: "Trash",
-      icon: "trash",
-    },
   ];
 </script>
 
@@ -28,6 +25,13 @@
   {#each sidebarItems as item}
     <SidebarBoardListItem {item} />
   {/each}
+  <SidebarAddBoardForm />
+  <SidebarBoardListItem
+    item={{
+      name: "Trash",
+      icon: "trash",
+    }}
+  />
   <div class="sidebar-add-board-button">
     <SidebarAddBoardButton />
   </div>

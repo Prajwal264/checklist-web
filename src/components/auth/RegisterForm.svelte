@@ -19,7 +19,7 @@
     const registerPromise = authService.register(formData);
     executePromise(registerPromise, {
       loading: "Registering User",
-      success: "Register successful",
+      success: "Registeration successful",
     });
     const response = await registerPromise;
     if ("error" in response) {

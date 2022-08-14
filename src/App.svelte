@@ -1,6 +1,7 @@
 <script lang="ts">
 	import router from "page";
-import Dashboard from './pages/Dashboard.svelte';
+	import { Toaster } from "svelte-french-toast";
+	import Dashboard from "./pages/Dashboard.svelte";
 	import Home from "./pages/Home.svelte";
 	import Signin from "./pages/Signin.svelte";
 	import Signup from "./pages/Signup.svelte";
@@ -14,6 +15,7 @@ import Dashboard from './pages/Dashboard.svelte';
 
 <main>
 	<svelte:component this={page} />
+	<Toaster />
 </main>
 
 <style lang="scss">

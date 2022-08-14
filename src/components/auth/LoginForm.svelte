@@ -1,3 +1,32 @@
+<script lang="ts">
+  import router from "page";
+  import toast from "svelte-french-toast";
+  import { executePromise } from "../../helpers/toast.helpers";
+  import authService from "../../services/api/auth.service";
+  interface FormData {
+    email: string;
+    password: string;
+  }
+  let formData: FormData = {
+    email: "",
+    password: "",
+  };
+
+  async function login() {
+    const loginPromise = authService.login(formData);
+    executePromise(loginPromise, {
+      loading: "Loggin In",
+      success: "Login successful",
+    });
+    const response = await loginPromise;
+    if ("error" in response) {
+      toast.error(response.error);
+      return;
+    }
+    router.redirect("/app");
+  }
+</script>
+
 <div class="login-view-container">
   <div class="login-form-wrapper">
     <div class="fadein-container">
@@ -5,18 +34,24 @@
         <h1>Sign In</h1>
         <p class="signin-note">Welcome back to Columns.</p>
         <div class="form-wrapper">
-          <form>
+          <form on:submit|preventDefault={login}>
             <div class="input-container">
               <input
                 name="email"
                 type="email"
+                bind:value={formData.email}
                 placeholder="Enter your email..."
               />
             </div>
             <div class="input-container">
-              <input name="password" type="password" placeholder="Password" />
+              <input
+                name="password"
+                type="password"
+                placeholder="Password"
+                bind:value={formData.password}
+              />
             </div>
-            <button class="signin-cta"> Sign in </button>
+            <button class="signin-cta">Sign In</button>
           </form>
         </div>
       </div>

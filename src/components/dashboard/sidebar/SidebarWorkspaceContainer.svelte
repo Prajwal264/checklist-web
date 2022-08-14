@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import SidebarBoardList from "./SidebarBoardList.svelte";
 </script>
 

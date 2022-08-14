@@ -1,6 +1,5 @@
-<script>
+<script lang="ts">
   export let isSignup;
-  console.log(isSignup);
 </script>
 
 <header>

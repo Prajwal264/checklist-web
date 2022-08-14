@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import SidebarAddBoardButton from "./SidebarAddBoardButton.svelte";
 
   import SidebarBoardListItem from "./SidebarBoardListItem.svelte";

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import SidebarFooter from "./SidebarFooter.svelte";
   import SidebarWorkspaceContainer from "./SidebarWorkspaceContainer.svelte";
 </script>

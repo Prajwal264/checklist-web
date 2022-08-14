@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Sidebar from "../components/dashboard/sidebar/Sidebar.svelte";
 </script>
 

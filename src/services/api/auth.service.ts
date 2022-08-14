@@ -1,6 +1,7 @@
 import RestApiService, { ApiResponse, ErrorResponse } from './rest.service';
 
 interface RegisterPayload {
+  username: string;
   email: string;
   password: string;
 }

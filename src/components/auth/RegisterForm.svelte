@@ -1,3 +1,35 @@
+<script lang="ts">
+  import router from "page";
+  import toast from "svelte-french-toast";
+  import { executePromise } from "../../helpers/toast.helpers";
+  import authService from "../../services/api/auth.service";
+  interface FormData {
+    username: string;
+    email: string;
+    password: string;
+  }
+
+  let formData: FormData = {
+    username: "",
+    email: "",
+    password: "",
+  };
+
+  async function register() {
+    const registerPromise = authService.register(formData);
+    executePromise(registerPromise, {
+      loading: "Registering User",
+      success: "Register successful",
+    });
+    const response = await registerPromise;
+    if ("error" in response) {
+      toast.error(response.error);
+      return;
+    }
+    router.redirect("/signin");
+  }
+</script>
+
 <div class="registration-form-container">
   <div class="wrapper">
     <div class="fade-in-container">
@@ -5,13 +37,14 @@
         <h1>Hi there!</h1>
         <p class="registration-form-label">Please create your account.</p>
         <div class="form-wrapper">
-          <form>
+          <form on:submit|preventDefault={register}>
             <div class="input-container">
               <input
                 name="name"
                 type="text"
                 placeholder="First and last name"
                 autocomplete="off"
+                bind:value={formData.username}
               />
             </div>
             <div class="input-container">
@@ -19,10 +52,16 @@
                 name="email"
                 type="email"
                 placeholder="Enter your email..."
+                bind:value={formData.email}
               />
             </div>
             <div class="input-container">
-              <input name="password" type="password" placeholder="Password" />
+              <input
+                name="password"
+                type="password"
+                placeholder="Password"
+                bind:value={formData.password}
+              />
               <p class="signup-note">
                 Use 8 or more characters and don’t forget numbers & symbols.
               </p>

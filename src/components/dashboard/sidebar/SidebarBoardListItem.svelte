@@ -33,6 +33,9 @@
     display: flex;
     -webkit-box-align: center;
     align-items: center;
+    &:hover {
+      background-color: rgb(255, 255, 255);
+    }
     .icon-container {
       display: flex;
       -webkit-box-align: center;

@@ -1,3 +1,7 @@
+<script>
+  import SidebarBoardList from "./SidebarBoardList.svelte";
+</script>
+
 <div class="sidebar-workspace-container">
   <div class="workspace-container-inner">
     <div class="workspace-profile-container">
@@ -5,6 +9,7 @@
         <p>P</p>
       </a>
     </div>
+    <SidebarBoardList />
   </div>
 </div>
 
@@ -22,6 +27,7 @@
         -webkit-box-align: center;
         align-items: center;
         position: relative;
+        margin-bottom: 8px;
         a {
           color: rgb(0, 0, 0);
           text-decoration: none;

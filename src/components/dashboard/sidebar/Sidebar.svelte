@@ -9,7 +9,7 @@
     <div class="veritcal-panel-wrapper">
       <div class="sidebar-wrapper">
         <div class="sidebar-content">
-          <div class="search-container" />
+          <!-- <div class="search-container" /> -->
           <SidebarWorkspaceContainer />
           <SidebarFooter />
         </div>
@@ -32,7 +32,12 @@
       position: relative;
       .veritical-panel-background {
         display: block;
-        background: rgb(40, 40, 40);
+        background: linear-gradient(
+            0deg,
+            rgb(249, 250, 250),
+            rgb(249, 250, 250)
+          ),
+          linear-gradient(0deg, rgb(253, 233, 230), rgb(253, 233, 230));
         position: absolute;
         left: 0px;
         top: 0px;
@@ -44,7 +49,7 @@
         height: 100%;
         display: flex;
         .sidebar-wrapper {
-          box-shadow: rgb(61 61 61) 0px 0px 0px 1px;
+          box-shadow: rgb(0 0 0 / 6%) 0px 0px 0px 1px;
           position: relative;
           height: 100%;
           width: 260px;

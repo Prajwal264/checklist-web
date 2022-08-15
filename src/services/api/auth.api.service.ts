@@ -1,4 +1,5 @@
 import RestApiService, { ApiResponse } from './rest.api.service';
+import type { IUser } from './user.api.service';
 
 interface RegisterPayload {
   username: string;
@@ -6,7 +7,7 @@ interface RegisterPayload {
   password: string;
 }
 
-interface LoginPayload  {
+interface LoginPayload {
   email: string;
   password: string;
 };

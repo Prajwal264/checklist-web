@@ -1,12 +1,21 @@
 <script lang="ts">
+  import { onMount } from "svelte";
+  import { userService } from "../../../services/user.service";
+
   import SidebarBoardList from "./SidebarBoardList.svelte";
+
+  $: user = userService.user;
+
+  onMount(() => {
+    userService.setCurrentAuthenticatedUser();
+  });
 </script>
 
 <div class="sidebar-workspace-container">
   <div class="workspace-container-inner">
     <div class="workspace-profile-container">
       <a href="/app">
-        <p>P</p>
+        <p>{$user?.username?.[0]}</p>
       </a>
     </div>
     <SidebarBoardList />

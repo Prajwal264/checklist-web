@@ -1,4 +1,5 @@
 import RestApiService, { ApiResponse } from './rest.api.service';
+import Cookies from 'js-cookie';
 
 export interface IBoard {
   name: string;
@@ -17,7 +18,8 @@ export interface EditBoardPayload extends Partial<CreateBoardPayload> {
 class BoardAPIService extends RestApiService {
   constructor() {
     super();
-    super.updateContextPath('boards')
+    super.authorized = true;
+    super.updateContextPath('boards');
   }
 
   fetchAll(): Promise<ApiResponse<IBoard[]>> {

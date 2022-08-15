@@ -12,11 +12,13 @@
 
   const addBoard = () => {
     boardService.addBoard(formData);
+    formData.name = "";
   };
 
   const handleClickOutside = () => {
     if (!formData.name) {
       boardService.toggleShowAddBoardForm(false);
+      formData.name = "";
       return;
     }
     addBoard();

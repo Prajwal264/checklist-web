@@ -1,28 +1,21 @@
 <script lang="ts">
+  import { onMount } from "svelte";
+  import { boardService } from "../../../services/board.service";
+
   import SidebarAddBoardButton from "./SidebarAddBoardButton.svelte";
   import SidebarAddBoardForm from "./SidebarAddBoardForm.svelte";
 
   import SidebarBoardListItem from "./SidebarBoardListItem.svelte";
 
-  let sidebarItems = [
-    {
-      name: "Today",
-      icon: "star",
-    },
-    {
-      name: "First steps",
-    },
-    {
-      name: "Home Steps",
-    },
-    {
-      name: "Watch list",
-    },
-  ];
+  $: sidebarItems = boardService.allBoards;
+
+  onMount(() => {
+    boardService.getAllBoards();
+  });
 </script>
 
 <div class="sidebar-board-list-container">
-  {#each sidebarItems as item}
+  {#each $sidebarItems as item}
     <SidebarBoardListItem {item} />
   {/each}
   <SidebarAddBoardForm />

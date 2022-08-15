@@ -23,7 +23,7 @@ class BoardService {
       return;
     }
     this.allBoards.update((v) => [...v, newBoard])
-    this.toggleShowAddBoardForm(true);
+    this.toggleShowAddBoardForm(false);
   }
 
   toggleShowAddBoardForm(show?: boolean) {

@@ -7,7 +7,7 @@
 </main>
 
 <style lang="scss">
-  main .dashboard {
+  main.dashboard {
     display: flex;
     height: 100%;
     width: 100%;

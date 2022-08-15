@@ -57,10 +57,10 @@
             display: flex;
             flex-direction: column;
             height: 100%;
-            .search-container {
-              padding: 32px 20px 0px;
-              transition: border-color 0.2s ease 0s;
-            }
+            // .search-container {
+            //   padding: 32px 20px 0px;
+            //   transition: border-color 0.2s ease 0s;
+            // }
           }
         }
       }

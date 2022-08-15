@@ -1,10 +1,10 @@
 export type ErrorResponse = {
   error: string;
-} 
+}
 export type ApiResponse<T> = T | ErrorResponse;
 
 const defaultRequestOptions: RequestInit = {
-  headers: {'Content-Type': 'application/json'},
+  headers: { 'Content-Type': 'application/json' },
   mode: 'cors',
   credentials: 'include',
 }
@@ -16,17 +16,17 @@ export default class RestApiService {
     this.suffix = `http://localhost:4000/api/${contextPath}/`;
   }
 
-  protected get(url: string) {
+  protected async get(url: string) {
     url = this.suffix + url;
-    return fetch(url, {
+    const res = await fetch(url, {
       method: 'GET',
       ...defaultRequestOptions
     });
+    return res.json();
   }
 
   protected async post(url: string, body: any) {
     url = this.suffix + url;
-    console.log(body);
     const res = await fetch(url, {
       method: 'POST',
       body: JSON.stringify(body),

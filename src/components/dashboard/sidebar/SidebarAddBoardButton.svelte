@@ -1,4 +1,11 @@
-<button class="sidebar-addboard-button">
+<script>
+  import { boardService } from "../../../services/board.service";
+</script>
+
+<button
+  class="sidebar-addboard-button"
+  on:click={() => boardService.toggleShowAddBoardForm(true)}
+>
   <img src="assets/images/add-btn.svg" alt="add-btn" />
   <span>Add board</span>
 </button>

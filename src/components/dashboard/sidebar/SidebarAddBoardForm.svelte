@@ -1,35 +1,57 @@
 <script lang="ts">
+  import { onClickOutside } from "../../../helpers/click.helpers";
+  import { boardService } from "../../../services/board.service";
+
+  $: showAddBoardForm = boardService.showAddBoardForm;
   interface FormData {
     name: string;
   }
   let formData: FormData = {
     name: "",
   };
+
+  const addBoard = () => {
+    boardService.addBoard(formData);
+  };
+
+  const handleClickOutside = () => {
+    if (!formData.name) {
+      boardService.toggleShowAddBoardForm(false);
+      return;
+    }
+    addBoard();
+  };
 </script>
 
-<form class="sidebar-add-board-form">
-  <div class="form-container">
-    <div class="icon">
-      <img
-        src="assets/images/default-sidebar-icon.svg"
-        alt="default-sidebar-icon"
-      />
-    </div>
-    <div>
-      <div>
-        <textarea
-          class="title"
-          name="title"
-          id="title"
-          placeholder="New Board"
-          autocomplete="off"
-          rows="1"
-          bind:value={formData.name}
+{#if $showAddBoardForm}
+  <form
+    class="sidebar-add-board-form"
+    use:onClickOutside
+    on:clickOutside={handleClickOutside}
+  >
+    <div class="form-container">
+      <div class="icon">
+        <img
+          src="assets/images/default-sidebar-icon.svg"
+          alt="default-sidebar-icon"
         />
       </div>
+      <div>
+        <div>
+          <textarea
+            class="title"
+            name="title"
+            id="title"
+            placeholder="New Board"
+            autocomplete="off"
+            rows="1"
+            bind:value={formData.name}
+          />
+        </div>
+      </div>
     </div>
-  </div>
-</form>
+  </form>
+{/if}
 
 <style lang="scss">
   .sidebar-add-board-form {
@@ -40,7 +62,7 @@
     position: relative;
     z-index: 2;
     padding: 8px 10px 10px;
-    min-height: 30px;
+    max-height: 36px;
     .form-container {
       display: flex;
       flex-direction: row;

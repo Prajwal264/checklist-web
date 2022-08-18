@@ -6,7 +6,7 @@
   class="sidebar-addboard-button"
   on:click={() => boardService.toggleShowAddBoardForm(true)}
 >
-  <img src="assets/images/add-btn.svg" alt="add-btn" />
+  <img src="/assets/images/add-btn.svg" alt="add-btn" />
   <span>Add board</span>
 </button>
 

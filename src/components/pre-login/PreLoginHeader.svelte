@@ -2,7 +2,7 @@
   <div class="header-inner-container">
     <div class="header-logo">
       <a href=".">
-        <img src="./assets/images/logo.svg" alt="logo" />
+        <img src="/assets/images/logo.svg" alt="logo" />
         Checklist
       </a>
     </div>

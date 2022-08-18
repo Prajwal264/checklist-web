@@ -1,20 +1,19 @@
 <script lang="ts">
-	import router from "page";
+	import { Router, Route } from "svelte-routing";
 	import { Toaster } from "svelte-french-toast";
 	import Dashboard from "./pages/Dashboard.svelte";
 	import Home from "./pages/Home.svelte";
 	import Signin from "./pages/Signin.svelte";
 	import Signup from "./pages/Signup.svelte";
-	let page;
-	router("/", () => (page = Home));
-	router("/signup", () => (page = Signup));
-	router("/signin", () => (page = Signin));
-	router("/app", () => (page = Dashboard));
-	router.start();
 </script>
 
 <main>
-	<svelte:component this={page} />
+	<Router url={""}>
+		<Route path="/" component={Home} />
+		<Route path="/signup" component={Signup} />
+		<Route path="/signin" component={Signin} />
+		<Route path="/app/*" component={Dashboard} />
+	</Router>
 	<Toaster position="bottom-right" />
 </main>
 

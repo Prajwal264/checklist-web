@@ -1,6 +1,7 @@
 <script lang="ts">
   import router from "page";
   import toast from "svelte-french-toast";
+  import { navigate } from "svelte-routing";
   import { executePromise } from "../../helpers/toast.helpers";
   import authAPIService from "../../services/api/auth.api.service";
   interface FormData {
@@ -23,7 +24,7 @@
       toast.error(response.error);
       return;
     }
-    router.redirect("/app");
+    navigate("/app");
   }
 </script>
 

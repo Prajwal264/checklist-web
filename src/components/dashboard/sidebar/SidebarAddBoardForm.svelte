@@ -34,7 +34,7 @@
     <div class="form-container">
       <div class="icon">
         <img
-          src="assets/images/default-sidebar-icon.svg"
+          src="/assets/images/default-sidebar-icon.svg"
           alt="default-sidebar-icon"
         />
       </div>

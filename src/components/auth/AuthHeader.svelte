@@ -4,7 +4,7 @@
 
 <header>
   <a href=".">
-    <img src="./assets/images/logo-full.svg" alt="logo-full" />
+    <img src="/assets/images/logo-full.svg" alt="logo-full" />
   </a>
   <div>
     {#if isSignup}

@@ -5,7 +5,7 @@
 <a href="today" class="sidebar-board-list-item">
   <div class="icon-container">
     <img
-      src="assets/images/{item.icon || 'default-sidebar-icon'}.svg"
+      src="/assets/images/{item.icon || 'default-sidebar-icon'}.svg"
       alt={item.icon || "default"}
     />
   </div>

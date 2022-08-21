@@ -1,17 +1,21 @@
+<script>
+  import { link } from "svelte-routing";
+</script>
+
 <header>
   <div class="header-inner-container">
     <div class="header-logo">
-      <a href=".">
+      <a href="." use:link>
         <img src="/assets/images/logo.svg" alt="logo" />
         Checklist
       </a>
     </div>
     <ul class="nav-items">
       <li class="single-nav-item">
-        <a href="signin">Sign In</a>
+        <a href="signin" use:link>Sign In</a>
       </li>
       <li class="single-nav-item">
-        <a href="signup">
+        <a href="signup" use:link>
           <button>Sign Up</button>
         </a>
       </li>

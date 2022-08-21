@@ -1,8 +1,15 @@
 <script lang="ts">
-  export let item;
+  import { link } from "svelte-routing";
+  import type { IBoard } from "../../../services/api/board.api.service";
+  export let item: Partial<
+    IBoard & {
+      icon: string;
+    }
+  >;
+  console.log(item.boardId);
 </script>
 
-<a href="today" class="sidebar-board-list-item">
+<a href={"/app/" + item.boardId} class="sidebar-board-list-item" use:link>
   <div class="icon-container">
     <img
       src="/assets/images/{item.icon || 'default-sidebar-icon'}.svg"

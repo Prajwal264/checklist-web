@@ -1,3 +1,7 @@
+<script>
+  import { link } from "svelte-routing";
+</script>
+
 <div class="pre-login-hero-section">
   <div class="pre-login-hero-section-inner-content">
     <h1>Checklists arranged in columns</h1>
@@ -6,7 +10,7 @@
         Keep your thoughts, notes, tasks, projects, watchlists and plans
         organized. For teams & individuals.
       </p>
-      <a href="signup">
+      <a href="signup" use:link>
         <button>Get Started</button>
       </a>
     </div>

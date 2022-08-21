@@ -1,18 +1,19 @@
 <script lang="ts">
+  import { link } from "svelte-routing";
   export let isSignup;
 </script>
 
 <header>
-  <a href=".">
+  <a href="." use:link>
     <img src="/assets/images/logo-full.svg" alt="logo-full" />
   </a>
   <div>
     {#if isSignup}
-      <a href="signin">
+      <a href="signin" use:link>
         <button class="signin-btn">Sign In</button>
       </a>
     {:else}
-      <a href="signup">
+      <a href="signup" use:link>
         <button class="signin-btn">Sign Up</button>
       </a>
     {/if}

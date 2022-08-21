@@ -6,16 +6,20 @@
   import Board from "./Board.svelte";
   boardService.allBoards.subscribe((boards) => {
     if (boards.length) {
-      navigate(`/app/${boards[0].boardId}`);
+      // navigate(`/app/${boards[0].boardId}`);
     }
   });
 </script>
 
 <main class="dashboard">
   <Sidebar />
-  <Router>
-    <Route path="/:boardId" component={Board} />
-  </Router>
+  <section class="main-layout">
+    <Router>
+      <Route path="/:boardId" let:params>
+        <Board boardId={params.boardId} />
+      </Route>
+    </Router>
+  </section>
 </main>
 
 <style lang="scss">
@@ -23,5 +27,10 @@
     display: flex;
     height: 100%;
     width: 100%;
+    .main-layout {
+      min-width: 980px;
+      width: 100%;
+      padding-left: 260px;
+    }
   }
 </style>

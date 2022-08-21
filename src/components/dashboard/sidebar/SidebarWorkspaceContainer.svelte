@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { link } from "svelte-routing";
   import { userService } from "../../../services/user.service";
 
   import SidebarBoardList from "./SidebarBoardList.svelte";
@@ -14,7 +15,7 @@
 <div class="sidebar-workspace-container">
   <div class="workspace-container-inner">
     <div class="workspace-profile-container">
-      <a href="/app">
+      <a href="/app" use:link>
         <p>{$user?.username?.[0]}</p>
       </a>
     </div>

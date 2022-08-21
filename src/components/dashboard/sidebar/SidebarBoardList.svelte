@@ -21,6 +21,7 @@
   <SidebarAddBoardForm />
   <SidebarBoardListItem
     item={{
+      boardId: "trash",
       name: "Trash",
       icon: "trash",
     }}

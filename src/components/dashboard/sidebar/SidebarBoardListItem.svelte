@@ -1,15 +1,14 @@
 <script lang="ts">
-  import { link } from "svelte-routing";
+  import { Link } from "svelte-routing";
   import type { IBoard } from "../../../services/api/board.api.service";
   export let item: Partial<
     IBoard & {
       icon: string;
     }
   >;
-  console.log(item.boardId);
 </script>
 
-<a href={"/app/" + item.boardId} class="sidebar-board-list-item" use:link>
+<Link to={"/app/" + item.boardId} class="sidebar-board-list-item">
   <div class="icon-container">
     <img
       src="/assets/images/{item.icon || 'default-sidebar-icon'}.svg"
@@ -17,10 +16,10 @@
     />
   </div>
   <p class="title">{item.name}</p>
-</a>
+</Link>
 
 <style lang="scss">
-  .sidebar-board-list-item {
+  :global(.sidebar-board-list-item) {
     display: flex;
     flex: 1 1 0%;
     height: 100%;
@@ -40,6 +39,11 @@
     display: flex;
     -webkit-box-align: center;
     align-items: center;
+
+    &:active {
+      transition: opacity 0s ease 0s, background-color 0s ease 0s;
+      background-color: rgb(210, 227, 253);
+    }
     &:hover {
       background-color: rgb(255, 255, 255);
     }
@@ -57,5 +61,9 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+  }
+  :global(a.sidebar-board-list-item[aria-current="page"]) {
+    transition: opacity 0s ease 0s, background-color 0s ease 0s;
+    background-color: rgb(210, 227, 253);
   }
 </style>

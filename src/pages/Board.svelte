@@ -6,7 +6,7 @@
 
 <div class="board-page">
   <div class="column-list-container">
-    <AddColumn />
+    <AddColumn {boardId} />
   </div>
 </div>
 

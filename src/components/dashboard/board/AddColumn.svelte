@@ -1,11 +1,44 @@
 <script lang="ts">
+  import toast from "svelte-french-toast";
+
   import { onClickOutside } from "../../../helpers/click.helpers";
+  import { executePromise } from "../../../helpers/toast.helpers";
+  import { columnAPIService } from "../../../services/api/column.api.service";
+
+  export let boardId: string | null = null;
+
+  interface FormData {
+    title: string;
+    description: string;
+  }
+  let formData: FormData = {
+    title: "",
+    description: "",
+  };
   let showColumnCreationForm = false;
+
   const toggleShowCreationForm = () => {
     showColumnCreationForm = !showColumnCreationForm;
   };
+
   const handleClickOutside = () => {
     showColumnCreationForm = false;
+  };
+
+  const createColumn = async () => {
+    const createColumnPromise = columnAPIService.create({
+      ...formData,
+      boardId,
+    });
+    executePromise(createColumnPromise, {
+      loading: "Creating Board",
+      success: "Board created successfully",
+    });
+    const response = await createColumnPromise;
+    if ("error" in response) {
+      toast.error(response.error);
+      return;
+    }
   };
 </script>
 
@@ -20,7 +53,26 @@
       use:onClickOutside
       on:clickOutside={handleClickOutside}
     >
-      <div class="inner-container" />
+      <form class="inner-container" on:submit|preventDefault={createColumn}>
+        <textarea
+          name="title"
+          class="form-input-title"
+          placeholder="New list"
+          id="form-title"
+          cols="30"
+          rows="1"
+          bind:value={formData.title}
+        />
+        <textarea
+          name="description"
+          class="form-input-description"
+          placeholder="description"
+          id="form-description"
+          cols="30"
+          rows="1"
+          bind:value={formData.description}
+        />
+      </form>
     </div>
   {/if}
 </div>
@@ -64,6 +116,48 @@
         z-index: 2;
         padding: 22px 10px 10px;
         height: 100%;
+        .form-input-title {
+          width: 100%;
+          resize: none;
+          border: none;
+          padding: 0px;
+          outline: none;
+          color: rgb(0, 0, 0);
+          caret-color: rgb(35, 135, 251);
+          background-color: transparent;
+          font-family: Graphik, -apple-system, "Segoe UI", "Helvetica Neue",
+            Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+          font-weight: 700;
+          font-size: 2.8rem;
+          line-height: 2.8rem;
+          letter-spacing: -0.1rem;
+          margin-bottom: 2px;
+          overflow: hidden;
+          overflow-wrap: break-word;
+          height: 30px;
+          &::placeholder {
+            opacity: 0.3;
+          }
+        }
+        .form-input-description {
+          width: 100%;
+          resize: none;
+          border: none;
+          padding: 0px;
+          outline: none;
+          color: rgb(0, 0, 0);
+          caret-color: rgb(35, 135, 251);
+          background-color: transparent;
+          font-size: 1.4rem;
+          line-height: 1.7rem;
+          margin-bottom: 7px;
+          overflow: hidden;
+          overflow-wrap: break-word;
+          height: 17px;
+          &::placeholder {
+            opacity: 0.3;
+          }
+        }
       }
     }
   }

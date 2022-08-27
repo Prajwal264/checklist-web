@@ -1,11 +1,23 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import AddColumn from "../components/dashboard/board/AddColumn.svelte";
+  import Column from "../components/dashboard/board/column/Column.svelte";
+  import { columnService } from "../services/column.service";
 
   export let boardId: string | null = null;
+
+  $: boards = columnService.allColumns;
+
+  onMount(() => {
+    columnService.getAllColumns(boardId);
+  });
 </script>
 
 <div class="board-page">
   <div class="column-list-container">
+    {#each $boards as column}
+      <Column {column} />
+    {/each}
     <AddColumn {boardId} />
   </div>
 </div>

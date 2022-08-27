@@ -23,8 +23,14 @@ class ColumnAPIService extends RestApiService {
     super.updateContextPath('columns');
   }
 
-  fetchAll(): Promise<ApiResponse<IColumn[]>> {
-    return this.get('');
+  fetchAll(boardId: string): Promise<ApiResponse<IColumn[]>> {
+    let url = '';
+    const searchParams = new URLSearchParams();
+    if (boardId) {
+      searchParams.set('boardId', boardId);
+    }
+    url += '?' + searchParams.toString();
+    return this.get(url);
   }
 
   create(payload: CreateColumnPayload): Promise<ApiResponse<IColumn>> {

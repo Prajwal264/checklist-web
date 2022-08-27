@@ -1,20 +1,20 @@
 <script lang="ts">
-  import toast from "svelte-french-toast";
-
   import { onClickOutside } from "../../../helpers/click.helpers";
   import { executePromise } from "../../../helpers/toast.helpers";
-  import { columnAPIService } from "../../../services/api/column.api.service";
+  import { columnService } from "../../../services/column.service";
 
   export let boardId: string | null = null;
+
+  const defaultFormData = {
+    title: "",
+    description: "",
+  };
 
   interface FormData {
     title: string;
     description: string;
   }
-  let formData: FormData = {
-    title: "",
-    description: "",
-  };
+  let formData: FormData = { ...defaultFormData };
   let showColumnCreationForm = false;
 
   const toggleShowCreationForm = () => {
@@ -23,10 +23,15 @@
 
   const handleClickOutside = () => {
     showColumnCreationForm = false;
+    if (!formData.title) {
+      showColumnCreationForm = false;
+      return;
+    }
+    createColumn();
   };
 
   const createColumn = async () => {
-    const createColumnPromise = columnAPIService.create({
+    const createColumnPromise = columnService.addColumn({
       ...formData,
       boardId,
     });
@@ -34,11 +39,8 @@
       loading: "Creating Board",
       success: "Board created successfully",
     });
-    const response = await createColumnPromise;
-    if ("error" in response) {
-      toast.error(response.error);
-      return;
-    }
+    await createColumnPromise;
+    formData = { ...defaultFormData };
   };
 </script>
 
@@ -53,7 +55,7 @@
       use:onClickOutside
       on:clickOutside={handleClickOutside}
     >
-      <form class="inner-container" on:submit|preventDefault={createColumn}>
+      <form class="inner-container">
         <textarea
           name="title"
           class="form-input-title"

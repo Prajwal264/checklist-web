@@ -1,3 +1,4 @@
+import { navigate } from 'svelte-routing';
 import { readable, Writable, writable } from 'svelte/store';
 import { boardAPIService, CreateBoardPayload, IBoard } from './api/board.api.service';
 

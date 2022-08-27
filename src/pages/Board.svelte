@@ -1,10 +1,12 @@
 <script lang="ts">
+  import AddColumn from "../components/dashboard/board/AddColumn.svelte";
+
   export let boardId: string | null = null;
 </script>
 
 <div class="board-page">
   <div class="column-list-container">
-    Board {boardId}
+    <AddColumn />
   </div>
 </div>
 

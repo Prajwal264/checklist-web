@@ -1,6 +1,9 @@
+export const BASE_API_URL = 'http://localhost:4000/api';
+
 export type ErrorResponse = {
   error: string;
 }
+
 export type ApiResponse<T> = T | ErrorResponse;
 
 import Cookies from 'js-cookie';
@@ -22,7 +25,7 @@ export default class RestApiService {
     const response = await res.json();
     if (this.authorized) {
       if (response.status === "Token Expired") {
-        const refreshtokenResponse = await fetch('http://localhost:4000/api/auth/refreshtoken', {
+        const refreshtokenResponse = await fetch(`${BASE_API_URL}/auth/refreshtoken`, {
           method: 'POST',
           ...defaultRequestOptions,
           headers: this.getHeaders(),
@@ -43,7 +46,7 @@ export default class RestApiService {
   }
 
   protected updateContextPath(contextPath: string) {
-    this.suffix = `http://localhost:4000/api/${contextPath}/`;
+    this.suffix = `${BASE_API_URL}/${contextPath}/`;
   }
 
   private getHeaders() {

@@ -1,16 +1,7 @@
 <script lang="ts">
-  import { onMount } from "svelte";
   import { Route, Router } from "svelte-routing";
   import Sidebar from "../components/dashboard/sidebar/Sidebar.svelte";
-  import { boardService } from "../services/board.service";
   import Board from "./Board.svelte";
-  onMount(() => {
-    boardService.allBoards.subscribe((boards) => {
-      if (boards.length) {
-        // navigate(`/app/${boards[0].boardId}`);
-      }
-    });
-  });
 </script>
 
 <main class="dashboard">

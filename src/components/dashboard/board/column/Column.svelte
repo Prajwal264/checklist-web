@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { IColumn } from "../../../../services/api/column.api.service";
+  import AddColumnItemsSection from "./AddColumnItemsSection.svelte";
   import ColumnHeader from "./ColumnHeader.svelte";
   export let column: IColumn | null = null;
 </script>
@@ -8,8 +9,9 @@
   <div class="scrollContainer">
     <div class="columnStateContainer">
       <ColumnHeader {column} />
-      <div class="columnSlider" />
+      <AddColumnItemsSection />
     </div>
+    <div class="columnSlider" />
   </div>
 </div>
 
@@ -30,16 +32,16 @@
         padding: 33px 5px;
         position: relative;
         border-radius: 10px;
-        .columnSlider {
-          cursor: ew-resize;
-          width: 1px;
-          height: 100%;
-          position: absolute;
-          right: 0px;
-          top: 0px;
-          z-index: 1;
-          background-color: rgba(0, 0, 0, 0.06);
-        }
+      }
+      .columnSlider {
+        cursor: ew-resize;
+        width: 1px;
+        height: 100%;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        z-index: 1;
+        background-color: rgba(0, 0, 0, 0.06);
       }
     }
   }

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createEventDispatcher, getContext } from "svelte";
+  import { createEventDispatcher } from "svelte";
 
   import { onClickOutside } from "../../../../helpers/click.helpers";
   import { executePromise } from "../../../../helpers/toast.helpers";
@@ -16,7 +16,7 @@
     checked: false,
   };
 
-  let column: IColumn = getContext("column");
+  export let columnId: string;
 
   const dispatch = createEventDispatcher();
 
@@ -24,7 +24,7 @@
     if (formData.title) {
       const addCardPromise = cardService.addCard({
         ...formData,
-        columnId: column.columnId,
+        columnId: columnId,
       });
       executePromise(addCardPromise, {
         success: "Card created successfully",

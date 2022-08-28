@@ -3,6 +3,8 @@
 
   import { onClickOutside } from "../../../../helpers/click.helpers";
 
+  export let columnId: string;
+
   interface IFormData {
     title: string;
     description?: string;

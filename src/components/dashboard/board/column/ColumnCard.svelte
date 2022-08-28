@@ -2,17 +2,16 @@
   import Checkbox from "../../../shared/Checkbox.svelte";
   import type { ICard } from "../../../../services/api/card.api.service";
   import { cardService } from "../../../../services/card.service";
-  import { getContext } from "svelte";
-  import type { IColumn } from "../../../../services/api/column.api.service";
   export let card: ICard;
-  const column: IColumn = getContext("column");
+
+  export let columnId: string;
 
   function toggleChecked(event: CustomEvent<boolean>) {
     const checked = event.detail;
     cardService.updateCard({
       cardId: card.cardId,
       checked,
-      columnId: column.columnId,
+      columnId: columnId,
     });
   }
 </script>

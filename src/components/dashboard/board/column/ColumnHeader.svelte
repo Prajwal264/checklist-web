@@ -1,19 +1,18 @@
 <script lang="ts">
-  import { getContext } from "svelte";
-
   import type { IColumn } from "../../../../services/api/column.api.service";
+
   import ColumnEllipseDropdown from "./ColumnEllipseDropdown.svelte";
-  let column: IColumn | null = getContext("column");
   let showEllipseDropdown = false;
   function handleClickOutside() {
     showEllipseDropdown = false;
   }
+  export let column: IColumn;
 </script>
 
 <div class="columnHeader">
-  <h6>{column.title}</h6>
-  {#if column.description}
-    <p>{column.description}</p>
+  <h6>{column?.title}</h6>
+  {#if column?.description}
+    <p>{column?.description}</p>
   {/if}
   <div class="trigger-container">
     <span on:click={() => (showEllipseDropdown = !showEllipseDropdown)}>
@@ -21,7 +20,7 @@
     </span>
   </div>
   {#if showEllipseDropdown}
-    <ColumnEllipseDropdown on:clickOutside={handleClickOutside} />
+    <ColumnEllipseDropdown {column} on:clickOutside={handleClickOutside} />
   {/if}
 </div>
 

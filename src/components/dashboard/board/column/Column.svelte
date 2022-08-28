@@ -1,23 +1,19 @@
 <script lang="ts">
-  import { setContext } from "svelte";
-
   import type { IColumn } from "../../../../services/api/column.api.service";
   import AddColumnItemsSection from "./AddColumnItemsSection.svelte";
   import ColumnCard from "./ColumnCard.svelte";
   import ColumnHeader from "./ColumnHeader.svelte";
-  export let column: IColumn | null = null;
-
-  setContext("column", column);
+  export let column: IColumn;
 </script>
 
 <div class="column">
   <div class="scrollContainer">
     <div class="columnStateContainer">
-      <ColumnHeader />
+      <ColumnHeader {column} />
       {#each column.children as item}
-        <ColumnCard card={item} />
+        <ColumnCard card={item} columnId={column.columnId} />
       {/each}
-      <AddColumnItemsSection />
+      <AddColumnItemsSection columnId={column.columnId} />
     </div>
     <div class="columnSlider" />
   </div>

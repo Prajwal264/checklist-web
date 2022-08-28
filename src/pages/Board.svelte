@@ -6,8 +6,13 @@
 
   export let boardId: string | null = null;
 
+  let cachedBoardId;
+
   $: if (boardId) {
-    columnService.getAllColumns(boardId);
+    if (boardId !== cachedBoardId) {
+      columnService.getAllColumns(boardId);
+      cachedBoardId = boardId;
+    }
   }
 
   $: boards = columnService.allColumns;

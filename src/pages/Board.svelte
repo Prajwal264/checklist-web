@@ -1,16 +1,16 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { onMount, afterUpdate } from "svelte";
   import AddColumn from "../components/dashboard/board/AddColumn.svelte";
   import Column from "../components/dashboard/board/column/Column.svelte";
   import { columnService } from "../services/column.service";
 
   export let boardId: string | null = null;
 
-  $: boards = columnService.allColumns;
-
-  onMount(() => {
+  $: if (boardId) {
     columnService.getAllColumns(boardId);
-  });
+  }
+
+  $: boards = columnService.allColumns;
 </script>
 
 <div class="board-page">

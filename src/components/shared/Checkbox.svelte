@@ -47,6 +47,10 @@
         &.checked {
           background-color: rgb(35, 135, 251);
         }
+        &:hover,
+        &.checked {
+          box-shadow: rgb(210 227 253) 0px 0px 0px 2px;
+        }
       }
     }
   }

@@ -7,7 +7,7 @@
     ADD_CARD = "ADD_CARD",
     ADD_HEADING = "ADD_HEADING",
   }
-
+  export let columnId: string;
   let addColumnItemState = IAddColumnItemState.DEFAULT;
 
   function resetItemStateToDefault() {
@@ -35,7 +35,7 @@
       </div>
     </div>
   {:else if addColumnItemState === IAddColumnItemState.ADD_CARD}
-    <AddCardForm on:clickOutside={resetItemStateToDefault} />
+    <AddCardForm {columnId} on:clickOutside={resetItemStateToDefault} />
   {:else if addColumnItemState === IAddColumnItemState.ADD_HEADING}
     <AddHeaderForm on:clickOutside={resetItemStateToDefault} />
   {/if}

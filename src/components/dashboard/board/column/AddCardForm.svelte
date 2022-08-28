@@ -2,31 +2,41 @@
   import { createEventDispatcher } from "svelte";
 
   import { onClickOutside } from "../../../../helpers/click.helpers";
+  import { executePromise } from "../../../../helpers/toast.helpers";
+  import { cardService } from "../../../../services/card.service";
   import Checkbox from "../../../shared/Checkbox.svelte";
 
+  export let columnId;
   interface IFormData {
     title: string;
-    description?: string;
+    checked: boolean;
   }
 
   let formData: IFormData = {
     title: "",
-    description: "",
+    checked: false,
   };
 
   const dispatch = createEventDispatcher();
 
-  function handleClickOutside() {
+  async function addCard() {
+    if (formData.title) {
+      const addCardPromise = cardService.addCard({
+        ...formData,
+        columnId,
+      });
+      executePromise(addCardPromise, {
+        success: "Card created successfully",
+        loading: "Creating card",
+      });
+      await addCardPromise;
+    }
     dispatch("clickOutside");
   }
 </script>
 
-<div
-  class="add-card-section"
-  use:onClickOutside
-  on:clickOutside={handleClickOutside}
->
-  <Checkbox />
+<div class="add-card-section" use:onClickOutside on:clickOutside={addCard}>
+  <Checkbox bind:checked={formData.checked} />
   <div class="add-card-body">
     <textarea
       name="title"
@@ -35,14 +45,6 @@
       rows="1"
       class="form-input-new-card"
       bind:value={formData.title}
-    />
-    <textarea
-      name="description"
-      autocomplete="off"
-      placeholder="Description"
-      rows="1"
-      class="form-input-new-card-description"
-      bind:value={formData.description}
     />
   </div>
 </div>
@@ -79,23 +81,6 @@
         color: rgb(0, 0, 0);
         caret-color: rgb(35, 135, 251);
         background-color: transparent;
-      }
-      .form-input-new-card-description {
-        overflow: hidden;
-        overflow-wrap: break-word;
-        height: 17px;
-        width: 100%;
-        resize: none;
-        border: none;
-        padding: 0px;
-        outline: none;
-        color: rgb(0, 0, 0);
-        caret-color: rgb(35, 135, 251);
-        background-color: transparent;
-        min-height: 100%;
-        font-size: 1.4rem;
-        line-height: 1.7rem;
-        margin-bottom: 6px;
       }
     }
   }

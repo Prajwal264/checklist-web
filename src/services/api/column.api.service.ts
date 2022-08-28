@@ -1,10 +1,12 @@
+import type { ICard } from './card.api.service';
 import RestApiService, { ApiResponse } from './rest.api.service';
 
 export interface IColumn {
   title: string;
   boardId: string;
   columnId: string;
-  description: string;
+  description?: string;
+  children?: ICard[];
 }
 
 export interface CreateColumnPayload {

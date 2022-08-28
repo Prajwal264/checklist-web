@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { IColumn } from "../../../../services/api/column.api.service";
   import AddColumnItemsSection from "./AddColumnItemsSection.svelte";
+  import ColumnCard from "./ColumnCard.svelte";
   import ColumnHeader from "./ColumnHeader.svelte";
   export let column: IColumn | null = null;
 </script>
@@ -9,7 +10,10 @@
   <div class="scrollContainer">
     <div class="columnStateContainer">
       <ColumnHeader {column} />
-      <AddColumnItemsSection />
+      {#each column.children as item}
+        <ColumnCard card={item} />
+      {/each}
+      <AddColumnItemsSection columnId={column.columnId} />
     </div>
     <div class="columnSlider" />
   </div>

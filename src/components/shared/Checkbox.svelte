@@ -1,7 +1,11 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
+
   export let checked = false;
+  const dispatch = createEventDispatcher<{ toggleChecked: boolean }>();
   function check() {
     checked = !checked;
+    dispatch("toggleChecked", checked);
   }
 </script>
 

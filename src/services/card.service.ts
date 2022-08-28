@@ -1,4 +1,4 @@
-import { cardAPISrvice, CreateCardPayload } from './api/card.api.service';
+import { cardAPISrvice, CreateCardPayload, EditCardPayload } from './api/card.api.service';
 import { columnService } from './column.service';
 
 class CardService {
@@ -19,6 +19,31 @@ class CardService {
     })
   }
 
+  async updateCard(payload: EditCardPayload) {
+    const updatedCard = await cardAPISrvice.update(payload);
+    if ('error' in updatedCard) {
+      // throw error
+      return;
+    }
+    columnService.allColumns.update((allColumns) => {
+      const alteredColumns = allColumns.map((column) => {
+        if (column.columnId === payload.columnId) {
+          column.children = column.children.map((child) => {
+            if (child.cardId === payload.cardId) {
+              return {
+                cardId: payload.cardId,
+                checked: payload.checked ?? child.checked,
+                title: payload.title ?? child.title,
+              }
+            }
+            return child
+          })
+        }
+        return column;
+      })
+      return alteredColumns;
+    })
+  }
 };
 
 

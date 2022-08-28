@@ -1,4 +1,7 @@
 <script lang="ts">
+  import { getContext } from "svelte";
+  import type { IColumn } from "../../../../services/api/column.api.service";
+
   import AddCardForm from "./AddCardForm.svelte";
   import AddHeaderForm from "./AddHeaderForm.svelte";
 
@@ -7,7 +10,6 @@
     ADD_CARD = "ADD_CARD",
     ADD_HEADING = "ADD_HEADING",
   }
-  export let columnId: string;
   let addColumnItemState = IAddColumnItemState.DEFAULT;
 
   function resetItemStateToDefault() {
@@ -35,7 +37,7 @@
       </div>
     </div>
   {:else if addColumnItemState === IAddColumnItemState.ADD_CARD}
-    <AddCardForm {columnId} on:clickOutside={resetItemStateToDefault} />
+    <AddCardForm on:clickOutside={resetItemStateToDefault} />
   {:else if addColumnItemState === IAddColumnItemState.ADD_HEADING}
     <AddHeaderForm on:clickOutside={resetItemStateToDefault} />
   {/if}

@@ -1,12 +1,11 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher, getContext } from "svelte";
 
   import { onClickOutside } from "../../../../helpers/click.helpers";
   import { executePromise } from "../../../../helpers/toast.helpers";
+  import type { IColumn } from "../../../../services/api/column.api.service";
   import { cardService } from "../../../../services/card.service";
   import Checkbox from "../../../shared/Checkbox.svelte";
-
-  export let columnId;
   interface IFormData {
     title: string;
     checked: boolean;
@@ -17,13 +16,15 @@
     checked: false,
   };
 
+  let column: IColumn = getContext("column");
+
   const dispatch = createEventDispatcher();
 
   async function addCard() {
     if (formData.title) {
       const addCardPromise = cardService.addCard({
         ...formData,
-        columnId,
+        columnId: column.columnId,
       });
       executePromise(addCardPromise, {
         success: "Card created successfully",

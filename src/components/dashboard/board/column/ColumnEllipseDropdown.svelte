@@ -1,14 +1,15 @@
-<script>
+<script lang="ts">
   import { executePromise } from "../../../../helpers/toast.helpers";
   import { columnService } from "../../../../services/column.service";
   import { onClickOutside } from "../../../../helpers/click.helpers";
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher, getContext } from "svelte";
 
   import ColumnEllipseDropdownListItem from "./ColumnEllipseDropdownListItem.svelte";
-  export let columnId;
+  import type { IColumn } from "../../../../services/api/column.api.service";
+  const column: IColumn = getContext("column");
 
   const deleteColumn = () => {
-    const deleteColumnPromise = columnService.removeColumn(columnId);
+    const deleteColumnPromise = columnService.removeColumn(column.columnId);
     executePromise(deleteColumnPromise, {
       loading: "Deleteing Column",
       success: "Column deleted successfully",

@@ -1,13 +1,26 @@
 <script lang="ts">
   import Checkbox from "../../../shared/Checkbox.svelte";
   import type { ICard } from "../../../../services/api/card.api.service";
+  import { cardService } from "../../../../services/card.service";
+  import { getContext } from "svelte";
+  import type { IColumn } from "../../../../services/api/column.api.service";
   export let card: ICard;
+  const column: IColumn = getContext("column");
+
+  function toggleChecked(event: CustomEvent<boolean>) {
+    const checked = event.detail;
+    cardService.updateCard({
+      cardId: card.cardId,
+      checked,
+      columnId: column.columnId,
+    });
+  }
 </script>
 
 <div class="column-card">
   <div class="column-card-inner">
     <div class="column-card-item">
-      <Checkbox bind:checked={card.checked} />
+      <Checkbox bind:checked={card.checked} on:toggleChecked={toggleChecked} />
       <div class="column-card-item-title">{card.title}</div>
     </div>
   </div>

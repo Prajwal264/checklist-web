@@ -27,26 +27,20 @@
   use:onClickOutside
   on:clickOutside={handleClickOutside}
 >
-  <div class="ellipse-options">
-    <ColumnEllipseDropdownListItem title={"delete"} on:click={deleteColumn} />
-  </div>
+  <ColumnEllipseDropdownListItem title={"delete"} on:click={deleteColumn} />
 </div>
 
 <style lang="scss">
   .ellipse-options-dropdown {
-    background-color: white;
-    position: relative;
-    .ellipse-options {
-      background-color: rgb(255, 255, 255);
-      box-shadow: rgb(0 0 0 / 25%) 0px 2px 6px;
-      border-radius: 8px;
-      padding: 7px 0px;
-      position: absolute;
-      min-width: 240px;
-      will-change: top, left, width, height;
-      top: 10px;
-      left: 0;
-      z-index: 10;
-    }
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgb(0 0 0 / 25%) 0px 2px 6px;
+    border-radius: 8px;
+    padding: 7px 0px;
+    position: absolute;
+    min-width: 240px;
+    will-change: top, left, width, height;
+    top: 30px;
+    left: 20px;
+    z-index: 10;
   }
 </style>

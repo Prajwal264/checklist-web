@@ -36,8 +36,8 @@
       boardId,
     });
     executePromise(createColumnPromise, {
-      loading: "Creating Board",
-      success: "Board created successfully",
+      loading: "Creating Column",
+      success: "Column created successfully",
     });
     await createColumnPromise;
     formData = { ...defaultFormData };

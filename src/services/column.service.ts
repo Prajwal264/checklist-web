@@ -24,6 +24,16 @@ class ColumnService {
     this.allColumns.update((v) => [...v, newColumn])
   }
 
+
+  async removeColumn(columnId: string) {
+    const response = await columnAPIService.remove(columnId);
+    if ('error' in response) {
+      // throw error
+      return;
+    }
+    this.allColumns.update((columns) => columns.filter((column) => column.columnId !== columnId))
+  }
+
 };
 
 

@@ -3,6 +3,7 @@ import RestApiService, { ApiResponse } from './rest.api.service';
 export interface IColumn {
   title: string;
   boardId: string;
+  columnId: string;
   description: string;
 }
 
@@ -39,6 +40,9 @@ class ColumnAPIService extends RestApiService {
 
   edit(payload: EditColumnPayload): Promise<ApiResponse<IColumn>> {
     return this.patch('', payload);
+  }
+  remove(columnId: string): Promise<ApiResponse<{ success: boolean }>> {
+    return this.delete(`${columnId}`);
   }
 }
 

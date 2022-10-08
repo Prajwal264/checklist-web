@@ -25,3 +25,4 @@ node_modules
 _actual*.*
 _output
 /types
+.env*

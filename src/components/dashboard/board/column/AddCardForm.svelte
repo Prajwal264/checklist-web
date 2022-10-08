@@ -43,7 +43,6 @@
       name="title"
       autocomplete="off"
       placeholder="New card"
-      rows="1"
       class="form-input-new-card"
       bind:value={formData.title}
     />
@@ -82,6 +81,7 @@
         color: rgb(0, 0, 0);
         caret-color: rgb(35, 135, 251);
         background-color: transparent;
+        height: max-content;
       }
     }
   }

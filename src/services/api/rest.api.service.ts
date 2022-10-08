@@ -1,4 +1,4 @@
-export const BASE_API_URL = 'http://localhost:4000/api';
+export const BASE_API_URL = process.env.BASE_API_URL + '/api';
 
 export type ErrorResponse = {
   error: string;

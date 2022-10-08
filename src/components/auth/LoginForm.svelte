@@ -1,9 +1,9 @@
 <script lang="ts">
-  import router from "page";
   import toast from "svelte-french-toast";
   import { navigate } from "svelte-routing";
   import { executePromise } from "../../helpers/toast.helpers";
   import authAPIService from "../../services/api/auth.api.service";
+  import Cookies from "js-cookie";
   interface FormData {
     email: string;
     password: string;
@@ -24,6 +24,7 @@
       toast.error(response.error);
       return;
     }
+    Cookies.set("accessToken", response.accessToken);
     navigate("/app");
   }
 </script>

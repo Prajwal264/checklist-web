@@ -1,5 +1,4 @@
 <script lang="ts">
-  import router from "page";
   import toast from "svelte-french-toast";
   import { navigate } from "svelte-routing";
   import { executePromise } from "../../helpers/toast.helpers";

@@ -17,7 +17,7 @@ interface RegisterResponse {
 };
 
 type LoginResponse = {
-  success: string;
+  accessToken: string;
 }
 
 class AuthAPIService extends RestApiService {

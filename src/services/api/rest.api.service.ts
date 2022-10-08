@@ -31,7 +31,8 @@ export default class RestApiService {
           headers: this.getHeaders(),
         });
         const refreshTokenData = await refreshtokenResponse.json();
-        if (!refreshTokenData.success) {
+        Cookies.set('accessToken', refreshTokenData.accessToken)
+        if (!refreshTokenData.accessToken) {
           navigate('/signin');
           return;
         }

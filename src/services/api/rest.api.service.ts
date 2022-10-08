@@ -70,6 +70,7 @@ export default class RestApiService {
     url = this.suffix + url;
     return await this.request(url, {
       method: 'POST',
+      credentials: 'include',
       body: JSON.stringify(body),
       ...defaultRequestOptions,
       headers: this.getHeaders(),

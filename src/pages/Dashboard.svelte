@@ -1,10 +1,7 @@
 <script lang="ts">
-  import { overrideItemIdKeyNameBeforeInitialisingDndZones } from "svelte-dnd-action";
   import { Route, Router } from "svelte-routing";
   import Sidebar from "../components/dashboard/sidebar/Sidebar.svelte";
   import Board from "./Board.svelte";
-
-  overrideItemIdKeyNameBeforeInitialisingDndZones("cardId");
 </script>
 
 <main class="dashboard">

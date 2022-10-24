@@ -1,29 +1,17 @@
 <script lang="ts">
-  import { dndzone } from "svelte-dnd-action";
   import type { IColumn } from "../../../../services/api/column.api.service";
   import AddColumnItemsSection from "./AddColumnItemsSection.svelte";
   import ColumnCard from "./ColumnCard.svelte";
   import ColumnHeader from "./ColumnHeader.svelte";
   export let column: IColumn;
-  import { flip } from "svelte/animate";
-  const flipDurationMs = 200;
-
-  const handleSort = (e) => {
-    console.log(e);
-  };
 </script>
 
 <div class="column">
   <section class="scrollContainer">
-    <div
-      class="columnStateContainer"
-      use:dndzone={{ items: column.children, flipDurationMs }}
-      on:consider={handleSort}
-      on:finalize={handleSort}
-    >
+    <div class="columnStateContainer">
       <ColumnHeader {column} />
-      {#each column.children as item (item.cardId)}
-        <div animate:flip={{ duration: flipDurationMs }}>
+      {#each column.children as item}
+        <div>
           <ColumnCard card={item} columnId={column.columnId} />
         </div>
       {/each}

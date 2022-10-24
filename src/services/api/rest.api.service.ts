@@ -1,5 +1,4 @@
-export const BASE_API_URL = process.env.BASE_API_URL + '/api';
-
+export const BASE_API_URL = (process.env.BASE_API_URL || 'http://localhost:4000') + '/api';
 export type ErrorResponse = {
   error: string;
 }
@@ -21,7 +20,7 @@ export default class RestApiService {
   protected authorized = false;
 
   protected async request(input: RequestInfo | URL, init?: RequestInit) {
-    const res = await fetch(input, init)
+    const res = await fetch(input as RequestInfo, init)
     const response = await res.json();
     if (this.authorized) {
       if (response.status === "Token Expired") {
@@ -36,7 +35,7 @@ export default class RestApiService {
           navigate('/signin');
           return;
         }
-        const response = await fetch(input, {
+        const response = await fetch(input as RequestInfo, {
           ...init,
           headers: this.getHeaders(),
         })

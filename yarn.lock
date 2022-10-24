@@ -919,6 +919,11 @@ svelte-check@^2.0.0:
     svelte-preprocess "^4.0.0"
     typescript "*"
 
+svelte-dnd-action@^0.9.21:
+  version "0.9.21"
+  resolved "https://registry.yarnpkg.com/svelte-dnd-action/-/svelte-dnd-action-0.9.21.tgz#b6239fc6cb6a6cbaae748a91ba404d092b819273"
+  integrity sha512-uSiaGiSY5KCTx5OtColSk/1qFFUAzGvnoQYDE5xfOmcyvf3lAI1IjPv0p0LRKrTudS9rGZYWPx44qsD09ER6QQ==
+
 svelte-french-toast@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/svelte-french-toast/-/svelte-french-toast-1.0.3.tgz#48ef030b07515a232ba158c1728695f017498787"

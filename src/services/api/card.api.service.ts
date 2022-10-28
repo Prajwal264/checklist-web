@@ -17,6 +17,15 @@ export interface EditCardPayload extends Partial<CreateCardPayload> {
   columnId: string;
 }
 
+
+export interface MoveCardPayload {
+  cardId: string;
+  sourceParentId: string;
+  destinationParent: string;
+  referenceNodeId: string;
+  isDroppedAbove: boolean;
+}
+
 class CardAPIService extends RestApiService {
   constructor() {
     super();

@@ -3,7 +3,6 @@
 
   import { onClickOutside } from "../../../../helpers/click.helpers";
   import { executePromise } from "../../../../helpers/toast.helpers";
-  import type { IColumn } from "../../../../services/api/column.api.service";
   import { cardService } from "../../../../services/card.service";
   import Checkbox from "../../../shared/Checkbox.svelte";
   interface IFormData {

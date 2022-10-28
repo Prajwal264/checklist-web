@@ -6,6 +6,8 @@
 
   export let columnId: string;
 
+  let isDragging = false;
+
   function toggleChecked(event: CustomEvent<boolean>) {
     const checked = event.detail;
     cardService.updateCard({
@@ -14,9 +16,47 @@
       columnId: columnId,
     });
   }
+
+  function handleDragStart(event: DragEvent) {
+    event.dataTransfer.setData("dragNodeId", card.cardId);
+    event.dataTransfer.setData("dragNodeParentId", columnId);
+    setTimeout(function () {
+      // the html drag drop API, creates a copy of the draggable node. The draggable node has to be present in the view until its copied.
+      isDragging = true;
+    }, 0);
+  }
+
+  function handleDragEnd(event: DragEvent) {
+    isDragging = false;
+  }
+
+  function handleDrop(event: DragEvent) {
+    let dropAbove = true;
+    if (event.offsetY > 0) {
+      dropAbove = false;
+    }
+    const dragNodeId = event.dataTransfer.getData("dragNodeId");
+    const dragNodeParentId = event.dataTransfer.getData("dragNodeParentId");
+    cardService.moveCard({
+      cardId: dragNodeId,
+      sourceParentId: dragNodeParentId,
+      destinationParent: columnId,
+      isDroppedAbove: dropAbove,
+      referenceNodeId: card.cardId,
+    });
+  }
 </script>
 
-<div class="column-card">
+<div
+  class="column-card"
+  draggable="true"
+  class:hide={isDragging}
+  on:dragstart={handleDragStart}
+  on:dragend={handleDragEnd}
+  on:dragenter|preventDefault
+  on:dragover|preventDefault
+  on:drop={handleDrop}
+>
   <div class="column-card-inner">
     <div class="column-card-item">
       <Checkbox bind:checked={card.checked} on:toggleChecked={toggleChecked} />
@@ -30,6 +70,9 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    &.hide {
+      display: none;
+    }
     .column-card-inner {
       position: relative;
       width: 100%;

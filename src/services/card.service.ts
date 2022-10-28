@@ -1,4 +1,4 @@
-import { cardAPISrvice, CreateCardPayload, EditCardPayload } from './api/card.api.service';
+import { cardAPISrvice, CreateCardPayload, EditCardPayload, MoveCardPayload } from './api/card.api.service';
 import { columnService } from './column.service';
 
 class CardService {
@@ -44,6 +44,34 @@ class CardService {
       return alteredColumns;
     })
   }
+
+  moveCard(payload: MoveCardPayload) {
+    columnService.allColumns.update((allColumns) => {
+      const columnForItemToBeMoved = allColumns.find((column) => column.columnId === payload.sourceParentId);
+      if (payload.cardId !== payload.referenceNodeId) {
+        if (columnForItemToBeMoved) {
+          const itemToBeMoved = columnForItemToBeMoved.children.find((item) => item.cardId === payload.cardId);
+          if (itemToBeMoved) {
+            const alteredColumns = allColumns.map((column) => {
+              if (column.columnId === payload.sourceParentId) {
+                column.children = column.children.filter((item) => item.cardId !== payload.cardId);
+              }
+              if (column.columnId === payload.destinationParent) {
+                let indexForMovement = column.children.findIndex((item) => item.cardId === payload.referenceNodeId)
+                indexForMovement = payload.isDroppedAbove ? --indexForMovement : indexForMovement;
+                debugger;
+                column.children.splice(indexForMovement, 0, itemToBeMoved)
+              }
+              return column;
+            })
+            return alteredColumns;
+          }
+        }
+      }
+      return allColumns;
+    })
+  }
+
 };
 
 

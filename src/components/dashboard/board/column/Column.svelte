@@ -10,10 +10,8 @@
   <section class="scrollContainer">
     <div class="columnStateContainer">
       <ColumnHeader {column} />
-      {#each column.children as item}
-        <div>
-          <ColumnCard card={item} columnId={column.columnId} />
-        </div>
+      {#each column.children as item, index}
+        <ColumnCard card={item} columnId={column.columnId} />
       {/each}
       <AddColumnItemsSection columnId={column.columnId} />
     </div>

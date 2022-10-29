@@ -58,8 +58,7 @@ class CardService {
               }
               if (column.columnId === payload.destinationParent) {
                 let indexForMovement = column.children.findIndex((item) => item.cardId === payload.referenceNodeId)
-                indexForMovement = payload.isDroppedAbove ? --indexForMovement : indexForMovement;
-                debugger;
+                indexForMovement = payload.isDroppedAbove ? indexForMovement : ++indexForMovement;
                 column.children.splice(indexForMovement, 0, itemToBeMoved)
               }
               return column;

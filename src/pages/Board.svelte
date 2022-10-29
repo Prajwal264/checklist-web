@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { onMount, afterUpdate } from "svelte";
   import AddColumn from "../components/dashboard/board/AddColumn.svelte";
   import Column from "../components/dashboard/board/column/Column.svelte";
   import { columnService } from "../services/column.service";

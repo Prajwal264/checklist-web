@@ -6,6 +6,8 @@
 
   export let columnId: string;
 
+  const DROPABLE_NODE_BORDER = "solid 2px #3a87fb";
+
   let isDragging = false;
 
   function toggleChecked(event: CustomEvent<boolean>) {
@@ -26,13 +28,40 @@
     }, 0);
   }
 
+  function handleDragEnter(event: DragEvent) {
+    (event.currentTarget as HTMLElement).style["border-bottom"] =
+      DROPABLE_NODE_BORDER;
+  }
+
   function handleDragEnd(event: DragEvent) {
     isDragging = false;
   }
 
+  function handleDragLeave(event: DragEvent) {
+    const target = event.currentTarget as HTMLElement;
+    resetBorderHighlights(target);
+  }
+
+  function handleDragOver(event: DragEvent) {
+    const target = event.currentTarget as HTMLElement;
+    var bounding = (target as HTMLElement).getBoundingClientRect();
+    var offset = bounding.y + bounding.height / 2;
+    resetBorderHighlights(target);
+    // THIS IS HEAVY ON THE DOM, FIND AN ALTERNATIVE
+    if (event.clientY - offset > 0) {
+      target.style["border-bottom"] = DROPABLE_NODE_BORDER;
+    } else {
+      target.style["border-top"] = DROPABLE_NODE_BORDER;
+    }
+  }
+
   function handleDrop(event: DragEvent) {
+    const target = event.currentTarget as HTMLElement;
     let dropAbove = true;
-    if (event.offsetY > 0) {
+    var bounding = target.getBoundingClientRect();
+    var offset = bounding.y + bounding.height / 2;
+    resetBorderHighlights(target);
+    if (event.clientY - offset > 0) {
       dropAbove = false;
     }
     const dragNodeId = event.dataTransfer.getData("dragNodeId");
@@ -45,6 +74,15 @@
       referenceNodeId: card.cardId,
     });
   }
+
+  function resetBorderHighlights(target: HTMLElement) {
+    if (target.style["borderTop"] !== "") {
+      target.style["borderTop"] = "";
+    }
+    if (target.style["borderBottom"] !== "") {
+      target.style["borderBottom"] = "";
+    }
+  }
 </script>
 
 <div
@@ -53,8 +91,9 @@
   class:hide={isDragging}
   on:dragstart={handleDragStart}
   on:dragend={handleDragEnd}
-  on:dragenter|preventDefault
-  on:dragover|preventDefault
+  on:dragenter|preventDefault={handleDragEnter}
+  on:dragleave|preventDefault={handleDragLeave}
+  on:dragover|preventDefault={handleDragOver}
   on:drop={handleDrop}
 >
   <div class="column-card-inner">

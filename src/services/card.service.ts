@@ -1,3 +1,4 @@
+import toast from 'svelte-french-toast';
 import { cardAPISrvice, CreateCardPayload, EditCardPayload, MoveCardPayload } from './api/card.api.service';
 import { columnService } from './column.service';
 
@@ -6,6 +7,7 @@ class CardService {
     const newCard = await cardAPISrvice.create(payload);
     if ('error' in newCard) {
       // throw error
+      toast.error(newCard.error)
       return;
     }
     columnService.allColumns.update((allColumns) => {
@@ -22,6 +24,7 @@ class CardService {
   async updateCard(payload: EditCardPayload) {
     const updatedCard = await cardAPISrvice.update(payload);
     if ('error' in updatedCard) {
+      toast.error(updatedCard.error)
       // throw error
       return;
     }
@@ -45,7 +48,14 @@ class CardService {
     })
   }
 
-  moveCard(payload: MoveCardPayload) {
+  async moveCard(payload: MoveCardPayload) {
+    cardAPISrvice.move(payload).catch((response) => {
+      if ('error' in response) {
+        toast.error(response.error)
+        // throw error
+        return;
+      }
+    });
     columnService.allColumns.update((allColumns) => {
       const columnForItemToBeMoved = allColumns.find((column) => column.columnId === payload.sourceParentId);
       if (payload.cardId !== payload.referenceNodeId) {

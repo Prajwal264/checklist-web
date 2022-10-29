@@ -43,6 +43,10 @@ class CardAPIService extends RestApiService {
       checked: payload.checked,
     });
   }
+
+  move(payload: MoveCardPayload): Promise<ApiResponse<ICard>> {
+    return this.patch(`${payload.cardId}/move?`, payload);
+  }
 }
 
 export const cardAPISrvice = new CardAPIService();

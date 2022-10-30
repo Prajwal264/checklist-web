@@ -22,6 +22,8 @@
   }
 
   function handleDragStart(event: DragEvent) {
+    event.dataTransfer.effectAllowed = "move";
+    event.dataTransfer.dropEffect = "move";
     event.dataTransfer.setData("dragNodeId", card.cardId);
     event.dataTransfer.setData("dragNodeParentId", columnId);
     setTimeout(function () {
@@ -59,6 +61,7 @@
 
   function handleDrop(event: DragEvent) {
     const target = event.currentTarget as HTMLElement;
+    event.dataTransfer.dropEffect = "move";
     let dropAbove = true;
     var bounding = target.getBoundingClientRect();
     var offset = bounding.y + bounding.height / 2;

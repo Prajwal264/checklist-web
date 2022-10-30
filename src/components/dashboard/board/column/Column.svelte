@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { flip } from "svelte/animate";
   import type { IColumn } from "../../../../services/api/column.api.service";
   import AddColumnItemsSection from "./AddColumnItemsSection.svelte";
   import ColumnCard from "./ColumnCard.svelte";
@@ -10,8 +11,10 @@
   <section class="scrollContainer">
     <div class="columnStateContainer">
       <ColumnHeader {column} />
-      {#each column.children as item, index}
-        <ColumnCard card={item} columnId={column.columnId} />
+      {#each column.children as item (item.cardId)}
+        <div animate:flip>
+          <ColumnCard card={item} columnId={column.columnId} />
+        </div>
       {/each}
       <AddColumnItemsSection columnId={column.columnId} />
     </div>

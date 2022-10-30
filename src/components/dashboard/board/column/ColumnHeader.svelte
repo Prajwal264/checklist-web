@@ -1,16 +1,23 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
   import type { IColumn } from "../../../../services/api/column.api.service";
 
   import ColumnEllipseDropdown from "./ColumnEllipseDropdown.svelte";
   let showEllipseDropdown = false;
+  const dispatch = createEventDispatcher();
+
   function handleClickOutside() {
     showEllipseDropdown = false;
   }
   export let column: IColumn;
+
+  function toggleColumnExpandedState() {
+    dispatch("toggleExpanded");
+  }
 </script>
 
 <div class="columnHeader">
-  <h6>{column?.title}</h6>
+  <h6 on:click={toggleColumnExpandedState}>{column?.title}</h6>
   {#if column?.description}
     <p>{column?.description}</p>
   {/if}

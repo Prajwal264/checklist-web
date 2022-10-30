@@ -20,6 +20,10 @@
 
   const dispatch = createEventDispatcher();
 
+  let titleInput: HTMLTextAreaElement;
+
+  onMount(() => titleInput.focus());
+
   async function manipulateCard() {
     if (formData.title) {
       if (!cardId) {
@@ -70,6 +74,7 @@
       autocomplete="off"
       placeholder="New card"
       class="form-input-new-card"
+      bind:this={titleInput}
       on:keyup={keyPressEventHandler}
       value={formData.title}
     />

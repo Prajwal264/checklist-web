@@ -2,6 +2,7 @@
   import Checkbox from "../../../shared/Checkbox.svelte";
   import type { ICard } from "../../../../services/api/card.api.service";
   import { cardService } from "../../../../services/card.service";
+  import AddCardForm from "./AddCardForm.svelte";
   export let card: ICard;
 
   export let columnId: string;
@@ -9,6 +10,7 @@
   const DROPABLE_NODE_BORDER = "solid 2px #3a87fb";
 
   let isDragging = false;
+  let isEditFlow = false;
 
   function toggleChecked(event: CustomEvent<boolean>) {
     const checked = event.detail;
@@ -29,8 +31,8 @@
   }
 
   function handleDragEnter(event: DragEvent) {
-    (event.currentTarget as HTMLElement).style["border-bottom"] =
-      DROPABLE_NODE_BORDER;
+    const target = event.currentTarget as HTMLElement;
+    target.style["borderBottom"] = DROPABLE_NODE_BORDER;
   }
 
   function handleDragEnd(event: DragEvent) {
@@ -49,9 +51,9 @@
     resetBorderHighlights(target);
     // THIS IS HEAVY ON THE DOM, FIND AN ALTERNATIVE
     if (event.clientY - offset > 0) {
-      target.style["border-bottom"] = DROPABLE_NODE_BORDER;
+      target.style["borderBottom"] = DROPABLE_NODE_BORDER;
     } else {
-      target.style["border-top"] = DROPABLE_NODE_BORDER;
+      target.style["borderTop"] = DROPABLE_NODE_BORDER;
     }
   }
 
@@ -83,26 +85,50 @@
       target.style["borderBottom"] = "";
     }
   }
+
+  function handleDoubleClick() {
+    isEditFlow = true;
+  }
+
+  function handleClickOutsideAddForm() {
+    isEditFlow = false;
+  }
 </script>
 
-<div
-  class="column-card"
-  draggable="true"
-  class:hide={isDragging}
-  on:dragstart={handleDragStart}
-  on:dragend={handleDragEnd}
-  on:dragenter|preventDefault={handleDragEnter}
-  on:dragleave|preventDefault={handleDragLeave}
-  on:dragover|preventDefault={handleDragOver}
-  on:drop={handleDrop}
->
-  <div class="column-card-inner">
-    <div class="column-card-item">
-      <Checkbox bind:checked={card.checked} on:toggleChecked={toggleChecked} />
-      <div class="column-card-item-title">{card.title}</div>
+{#if !isEditFlow}
+  <div
+    class="column-card"
+    draggable="true"
+    class:hide={isDragging}
+    on:dragstart={handleDragStart}
+    on:dragend={handleDragEnd}
+    on:dragenter|preventDefault={handleDragEnter}
+    on:dragleave|preventDefault={handleDragLeave}
+    on:dragover|preventDefault={handleDragOver}
+    on:drop={handleDrop}
+    on:dblclick={handleDoubleClick}
+  >
+    <div class="column-card-inner">
+      <div class="column-card-item">
+        <Checkbox
+          bind:checked={card.checked}
+          on:toggleChecked={toggleChecked}
+        />
+        <div class="column-card-item-title">{card.title}</div>
+      </div>
     </div>
   </div>
-</div>
+{:else}
+  <AddCardForm
+    {columnId}
+    cardId={card.cardId}
+    formData={{
+      checked: card.checked,
+      title: card.title,
+    }}
+    on:clickOutside={handleClickOutsideAddForm}
+  />
+{/if}
 
 <style lang="scss">
   .column-card {
@@ -116,7 +142,7 @@
       position: relative;
       width: 100%;
       min-height: 32px;
-      cursor: pointer;
+      cursor: grab;
       border-radius: 6px;
       transition: background-color 0.2s ease 0s;
       background-color: transparent;

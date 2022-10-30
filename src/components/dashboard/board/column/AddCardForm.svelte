@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher, onMount } from "svelte";
 
   import { onClickOutside } from "../../../../helpers/click.helpers";
   import { executePromise } from "../../../../helpers/toast.helpers";
@@ -10,32 +10,59 @@
     checked: boolean;
   }
 
-  let formData: IFormData = {
+  export let formData: IFormData = {
     title: "",
     checked: false,
   };
 
   export let columnId: string;
+  export let cardId: string | undefined = undefined;
 
   const dispatch = createEventDispatcher();
 
-  async function addCard() {
+  async function manipulateCard() {
     if (formData.title) {
-      const addCardPromise = cardService.addCard({
-        ...formData,
-        columnId: columnId,
-      });
-      executePromise(addCardPromise, {
-        success: "Card created successfully",
-        loading: "Creating card",
-      });
-      await addCardPromise;
+      if (!cardId) {
+        const addCardPromise = cardService.addCard({
+          ...formData,
+          columnId: columnId,
+        });
+        executePromise(addCardPromise, {
+          success: "Card created successfully",
+          loading: "Creating card",
+        });
+        await addCardPromise;
+      } else {
+        const updateCardPromise = cardService.updateCard({
+          cardId,
+          columnId,
+          ...formData,
+        });
+        executePromise(updateCardPromise, {
+          success: "Card updated successfully",
+          loading: "Updating card",
+        });
+        await updateCardPromise;
+      }
     }
     dispatch("clickOutside");
   }
+  function keyPressEventHandler(event: KeyboardEvent) {
+    const key = event.keyCode;
+    if (key === 13 && !event.shiftKey) {
+      event.preventDefault();
+      manipulateCard();
+      return;
+    }
+    formData.title = (event.target as HTMLInputElement).value;
+  }
 </script>
 
-<div class="add-card-section" use:onClickOutside on:clickOutside={addCard}>
+<div
+  class="add-card-section"
+  use:onClickOutside
+  on:clickOutside={manipulateCard}
+>
   <Checkbox bind:checked={formData.checked} />
   <div class="add-card-body">
     <textarea
@@ -43,7 +70,8 @@
       autocomplete="off"
       placeholder="New card"
       class="form-input-new-card"
-      bind:value={formData.title}
+      on:keyup={keyPressEventHandler}
+      value={formData.title}
     />
   </div>
 </div>

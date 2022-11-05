@@ -1,18 +1,17 @@
 <script lang="ts">
-  import { executePromise } from "../../../../helpers/toast.helpers";
-  import { columnService } from "../../../../services/column.service";
-  import { onClickOutside } from "../../../../helpers/click.helpers";
+  import { executePromise } from "../../../helpers/toast.helpers";
+  import { onClickOutside } from "../../../helpers/click.helpers";
   import { createEventDispatcher } from "svelte";
 
-  import type { IColumn } from "../../../../services/api/column.api.service";
-  import EllipseDropdownListItem from "../../../shared/EllipseDropdownListItem.svelte";
-  export let column: IColumn;
+  import EllipseDropdownListItem from "../../shared/EllipseDropdownListItem.svelte";
+  import { boardService } from "../../../services/board.service";
+  export let itemId: string;
 
-  const deleteColumn = () => {
-    const deleteColumnPromise = columnService.removeColumn(column.columnId);
+  const deleteBoard = () => {
+    const deleteColumnPromise = boardService.deleteBoard(itemId);
     executePromise(deleteColumnPromise, {
-      loading: "Deleteing Column",
-      success: "Column deleted successfully",
+      loading: "Deleteing Board",
+      success: "Board deleted successfully",
     });
   };
 
@@ -28,7 +27,7 @@
   use:onClickOutside
   on:clickOutside={handleClickOutside}
 >
-  <EllipseDropdownListItem title={"delete"} on:click={deleteColumn} />
+  <EllipseDropdownListItem title={"delete"} on:click={deleteBoard} />
 </div>
 
 <style lang="scss">

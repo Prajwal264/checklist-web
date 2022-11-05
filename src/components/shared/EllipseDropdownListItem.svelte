@@ -9,7 +9,7 @@
   }
 </script>
 
-<div class="list-item" on:click={onClick}>
+<div class="list-item" on:click|stopPropagation={onClick}>
   <div class="icon-wrapper">
     <img src={`/assets/images/${title}.svg`} alt={`icon-${title}`} />
   </div>

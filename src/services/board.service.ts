@@ -27,6 +27,17 @@ class BoardService {
     this.toggleShowAddBoardForm(false);
   }
 
+  async deleteBoard(boardId: string) {
+    const deleteBoard = await boardAPIService.remove(boardId);
+    if ('error' in deleteBoard) {
+      // throw error
+      return;
+    }
+    this.allBoards.update((v) => {
+      return v.filter((i) => i.boardId !== boardId)
+    })
+  }
+
   toggleShowAddBoardForm(show?: boolean) {
     if (show !== undefined) {
       this.showAddBoardForm.set(show)

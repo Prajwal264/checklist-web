@@ -33,6 +33,9 @@ class BoardAPIService extends RestApiService {
   edit(payload: EditBoardPayload): Promise<ApiResponse<IBoard>> {
     return this.patch('', payload);
   }
+  remove(boardId: string): Promise<ApiResponse<IBoard>> {
+    return this.delete(boardId);
+  }
 }
 
 export const boardAPIService = new BoardAPIService();
